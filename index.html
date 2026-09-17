@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vivez l’aventure – Randonnée à l’Arboretum Raponda Walker</title>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f8fbfa;
+            color: #1e2b2c;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== COULEURS ===== */
+        :root {
+            --gabon-green: #009e60;
+            --gabon-yellow: #fcd116;
+            --gabon-blue: #3a75c4;
+            --dark: #0f2a1e;
+            --light-bg: #f0f7f3;
+            --white: #ffffff;
+            --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            --radius: 24px;
+        }
+
+        /* ===== BANNIÈRE DRAPEAU ===== */
+        .flag-banner {
+            display: flex;
+            height: 6px;
+            width: 100%;
+        }
+        .flag-banner span {
+            flex: 1;
+        }
+        .flag-banner .green {
+            background: var(--gabon-green);
+        }
+        .flag-banner .yellow {
+            background: var(--gabon-yellow);
+        }
+        .flag-banner .blue {
+            background: var(--gabon-blue);
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(145deg, #0f2a1e 0%, #1b4d34 100%);
+            color: white;
+            padding: 40px 0 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::after {
+            content: "🌿";
+            font-size: 140px;
+            opacity: 0.05;
+            position: absolute;
+            right: 10px;
+            bottom: -30px;
+            transform: rotate(-8deg);
+            pointer-events: none;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        header h1 i {
+            color: var(--gabon-yellow);
+            margin-right: 12px;
+        }
+        header .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #c6e0d4;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+        header .badge {
+            display: inline-block;
+            margin-top: 16px;
+            background: rgba(252, 209, 22, 0.15);
+            padding: 6px 28px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(252, 209, 22, 0.2);
+            color: #f7e7a0;
+        }
+        header .badge i {
+            margin-right: 8px;
+            color: var(--gabon-yellow);
+        }
+
+        /* ===== SECTION GÉNÉRIQUE ===== */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        .section-title span {
+            color: var(--gabon-green);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: var(--gabon-green);
+            margin-top: 8px;
+            border-radius: 4px;
+        }
+        .text-center .section-title::after {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #3d5a52;
+            max-width: 700px;
+            margin-bottom: 30px;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-center .section-subtitle {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== GALERIE PHOTO ===== */
+        #galerie {
+            background: var(--white);
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        .photo-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: #f0f5f2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+        .photo-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(145deg, #1f4d36, #0d2b1f);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            gap: 6px;
+            position: relative;
+        }
+        .photo-placeholder i {
+            font-size: 3.6rem;
+            color: var(--gabon-yellow);
+            opacity: 0.7;
+        }
+        .photo-placeholder .photo-label {
+            background: rgba(0, 0, 0, 0.35);
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: white;
+        }
+        .photo-card .caption {
+            padding: 16px 18px 18px;
+            background: white;
+        }
+        .photo-card .caption h4 {
+            font-size: 1.05rem;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+        .photo-card .caption p {
+            font-size: 0.92rem;
+            color: #3d5a52;
+            margin: 0;
+        }
+
+        /* ===== ACTIVITÉS ===== */
+        #activites {
+            background: var(--light-bg);
+        }
+
+        .activites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .activite-card {
+            background: white;
+            padding: 28px 22px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.25s ease;
+        }
+        .activite-card:hover {
+            transform: translateY(-4px);
+        }
+        .activite-card .icon {
+            font-size: 2.6rem;
+            color: var(--gabon-green);
+            margin-bottom: 12px;
+        }
+        .activite-card h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+        .activite-card p {
+            color: #3d5a52;
+            font-size: 0.95rem;
+        }
+
+        /* ===== TÉMOIGNAGES ===== */
+        #temoignages {
+            background: var(--white);
+        }
+
+        .temoignages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            margin-top: 10px;
+        }
+
+        .temoignage {
+            background: var(--light-bg);
+            padding: 28px 24px;
+            border-radius: var(--radius);
+            border-left: 6px solid var(--gabon-green);
+            box-shadow: var(--shadow);
+        }
+        .temoignage .stars {
+            color: var(--gabon-yellow);
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .temoignage blockquote {
+            font-style: italic;
+            color: #1e2b2c;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .temoignage .author {
+            font-weight: 600;
+            color: var(--gabon-green);
+        }
+        .temoignage .author small {
+            font-weight: 400;
+            color: #4a6b5e;
+            font-size: 0.85rem;
+        }
+
+        /* ===== APPEL À L’ACTION FINAL ===== */
+        #cta-client {
+            background: linear-gradient(145deg, #0f2a1e, #1b4d34);
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+        }
+        #cta-client h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        #cta-client h2 i {
+            color: var(--gabon-yellow);
+            margin-right: 10px;
+        }
+        #cta-client p {
+            font-size: 1.15rem;
+            color: #c6e0d4;
+            max-width: 650px;
+            margin: 12px auto 28px;
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--gabon-green);
+            color: white;
+            box-shadow: 0 6px 18px rgba(0, 158, 96, 0.35);
+        }
+        .btn-primary:hover {
+            background: #007a4a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(0, 158, 96, 0.4);
+        }
+        .btn-outline-light {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.35);
+        }
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: white;
+        }
+
+        /* ===== PIED DE PAGE ===== */
+        footer {
+            background: #061712;
+            color: #7f9b8f;
+            padding: 28px 0 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        footer .footer-links a {
+            color: #7f9b8f;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        footer .footer-links a:hover {
+            color: var(--gabon-yellow);
+        }
+        footer .copy {
+            opacity: 0.6;
+            font-size: 0.85rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 1.7rem;
+            }
+            .section-title {
+                font-size: 1.7rem;
+            }
+            #cta-client h2 {
+                font-size: 1.7rem;
+            }
+            .btn {
+                padding: 12px 28px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== BANNIÈRE DRAPEAU ===== -->
+    <div class="flag-banner">
+        <span class="green"></span>
+        <span class="yellow"></span>
+        <span class="blue"></span>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-leaf"></i>Vivez l’aventure</h1>
+            <p class="subtitle">Arboretum Raponda Walker – Gabon</p>
+            <div class="badge">
+                <i class="fas fa-tree"></i> Bois des Géants · Randonnées accessibles · Nature préservée
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== GALERIE PHOTO ===== -->
+    <section id="galerie">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Plongez dans <span>notre univers</span></h2>
+                <p class="section-subtitle">
+                    Laissez-vous inspirer par ces images. Ici, la forêt tropicale dévoile ses géants,
+                    ses lumières et ses secrets.
+                </p>
+            </div>
+
+            <div class="photo-grid">
+                <!-- Photo 1 -->
+                <div class="photo-card">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-tree"></i>
+                        <span class="photo-label">🌳 Le Bois des Géants</span>
+                    </div>
+                    <div class="caption">
+                        <h4>Sentier des Géants</h4>
+                        <p>Marchez parmi des arbres centenaires aux troncs immenses. Une immersion totale au cœur de la forêt équatoriale.</p>
+                    </div>
+                </div>
+                <!-- Photo 2 -->
+                <div class="photo-card">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-sun"></i>
+                        <span class="photo-label">☀️ Lumières de la forêt</span>
+                    </div>
+                    <div class="caption">
+                        <h4>Jeux de lumière</h4>
+                        <p>Les rayons du soleil percent la canopée et dessinent des tableaux éphémères sur le tapis de feuilles.</p>
+                    </div>
+                </div>
+                <!-- Photo 3 -->
+                <div class="photo-card">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-users"></i>
+                        <span class="photo-label">👫 Moments partagés</span>
+                    </div>
+                    <div class="caption">
+                        <h4>Convivialité & partage</h4>
+                        <p>Rires, échanges et bonne humeur sont au rendez-vous. Chaque randonnée est une aventure collective.</p>
+                    </div>
+                </div>
+                <!-- Photo 4 -->
+                <div class="photo-card">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-paw"></i>
+                        <span class="photo-label">🐒 Faune locale</span>
+                    </div>
+                    <div class="caption">
+                        <h4>Rencontres surprises</h4>
+                        <p>Singes, oiseaux colorés et petits mammifères peuplent la forêt. Ouvrez l’œil, la nature vous réserve des spectacles.</p>
+                    </div>
+                </div>
+                <!-- Photo 5 -->
+                <div class="photo-card">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-route"></i>
+                        <span class="photo-label">🥾 Sentiers balisés</span>
+                    </div>
+                    <div class="caption">
+                        <h4>Des parcours pour tous</h4>
+                        <p>Des chemins accessibles, de la balade familiale à la marche plus sportive. Chaque pas vous rapproche de l’essentiel.</p>
+                    </div>
+                </div>
+                <!-- Photo 6 -->
+                <div class="photo-card">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-water"></i>
+                        <span class="photo-label">🌊 Plage & mangrove</span>
+                    </div>
+                    <div class="caption">
+                        <h4>Entre forêt et océan</h4>
+                        <p>Certains sentiers mènent jusqu’à la plage. Un contraste saisissant entre la jungle dense et l’immensité Atlantique.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ACTIVITÉS ===== -->
+    <section id="activites">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Ce qui vous <span>attend</span></h2>
+                <p class="section-subtitle">
+                    Des expériences pensées pour éveiller vos sens et créer des souvenirs inoubliables.
+                </p>
+            </div>
+            <div class="activites-grid">
+                <div class="activite-card">
+                    <div class="icon"><i class="fas fa-hiking"></i></div>
+                    <h3>Randonnée guidée</h3>
+                    <p>Accompagnés par des guides passionnés, partez à la découverte de la flore, des arbres remarquables et des anecdotes du lieu.</p>
+                </div>
+                <div class="activite-card">
+                    <div class="icon"><i class="fas fa-binoculars"></i></div>
+                    <h3>Observation faune & flore</h3>
+                    <p>Repérez les singes, les oiseaux endémiques et admirez la diversité végétale. Une leçon de biologie grandeur nature.</p>
+                </div>
+                <div class="activite-card">
+                    <div class="icon"><i class="fas fa-camera"></i></div>
+                    <h3>Photo & immersion</h3>
+                    <p>Capturez la beauté sauvage de la forêt. Les jeux de lumière et les textures végétales offrent des clichés uniques.</p>
+                </div>
+                <div class="activite-card">
+                    <div class="icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>Découverte culturelle</h3>
+                    <p>Échangez avec les communautés locales, goûtez au vin de palme et plongez dans l’authenticité gabonaise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TÉMOIGNAGES ===== -->
+    <section id="temoignages">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Ils ont vécu <span>l’expérience</span></h2>
+                <p class="section-subtitle">
+                    Ce que nos randonneurs disent de leur aventure à l’Arboretum Raponda Walker.
+                </p>
+            </div>
+            <div class="temoignages-grid">
+                <div class="temoignage">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <blockquote>“Une bouffée d’air pur à 20 minutes de Libreville ! La forêt est magnifique, les guides très compétents. Une sortie parfaite entre amis.”</blockquote>
+                    <div class="author">Marie L. <small>– Libreville</small></div>
+                </div>
+                <div class="temoignage">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <blockquote>“J’ai adoré le Bois des Géants. On se sent tout petit face à ces arbres. L’ambiance est paisible, et on repart ressourcé.”</blockquote>
+                    <div class="author">David K. <small>– Paris</small></div>
+                </div>
+                <div class="temoignage">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <blockquote>“Un vrai moment de convivialité. On a ri, on a marché, on a découvert. Je recommande à tous ceux qui veulent une expérience authentique.”</blockquote>
+                    <div class="author">Sophie & Marc <small>– voyageurs</small></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== APPEL À L’ACTION FINAL ===== -->
+    <section id="cta-client">
+        <div class="container">
+            <h2><i class="fas fa-heart"></i>Prêt à vivre l’aventure ?</h2>
+            <p>
+                Rejoignez-nous pour une randonnée inoubliable. Que vous soyez seul, en famille ou entre amis,
+                une expérience unique vous attend au cœur de la forêt gabonaise.
+            </p>
+            <div class="btn-group">
+                <a href="mailto:MrGloireJared9@gmail.com" class="btn btn-primary">
+                    <i class="fas fa-envelope"></i> Réserver maintenant
+                </a>
+                <a href="https://wa.me/241062743994" target="_blank" class="btn btn-outline-light">
+                    <i class="fab fa-whatsapp"></i> Poser une question
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PIED DE PAGE ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#galerie">Galerie</a>
+                <a href="#activites">Activités</a>
+                <a href="#temoignages">Avis</a>
+                <a href="#cta-client">Contact</a>
+            </div>
+            <p class="copy">
+                &copy; 2026 – Randonnées à l’Arboretum Raponda Walker · Gabon
+                <br />
+                <span style="opacity:0.5;">Nature · Convivialité · Évasion</span>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
